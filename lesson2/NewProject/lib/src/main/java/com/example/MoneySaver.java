@@ -22,11 +22,12 @@ public class MoneySaver {
     }
 
     public String toString() {
-        return name + ", ";
+        return name + ", " + "My balance is: "+ myMoney;
     }
 
     public void deposit(long amount) {
         myAccount.deposit(amount);
+        this.myMoney -= amount;
     }
 
     public void withdraw(long amount) {
