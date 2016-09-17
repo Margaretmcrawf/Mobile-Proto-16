@@ -8,8 +8,13 @@ import java.util.ArrayList;
 public class Farm {
     public static void main(String  [] args) {
         ArrayList a = new ArrayList();
-        Cat larry = new Cat("larry", "orange");
     }
 
-    public Animal getHeaviestAnimals()
+    public Animal getHeaviestAnimals(ArrayList arr){
+        for (int i = 0; i < arr.size(); i++) {
+            Animal an = arr.get(i);
+            double wt = an.getWeight();
+            //need to use comparator??? idk.
+        }
+    }
 }
