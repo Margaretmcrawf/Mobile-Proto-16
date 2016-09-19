@@ -30,7 +30,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Task task = getItem(position);
+        final Task task = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_task, parent, false);
@@ -55,7 +55,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
                 alertDialogBuilder.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String textInput = edittext.getText().toString();
-                        tvText.setText(textInput);
+                        task.setText(textInput);
                         notifyDataSetChanged();
                     }
                 });
