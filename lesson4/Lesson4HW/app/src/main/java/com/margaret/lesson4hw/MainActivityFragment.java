@@ -1,23 +1,16 @@
 package com.margaret.lesson4hw;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,7 +20,7 @@ import butterknife.ButterKnife;
 public class MainActivityFragment extends Fragment {
     //preparing to butter...
     @BindView(R.id.tasklist) ListView listView;
-    @BindView(R.id.buttonbutton) Button buttonbutton;
+    @BindView(R.id.addButton) Button addButton;
 
     public MainActivityFragment() {
     }
@@ -45,17 +38,17 @@ public class MainActivityFragment extends Fragment {
         listView.setAdapter(tasksAdapter);
 
         //setting an onclick for the button that adds items.
-        buttonbutton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 //building the alertdialog, which pulls up an edittext and sets the value in the ArrayList.
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setTitle("Enter an task to do");
+                alertDialogBuilder.setTitle(R.string.add_item_title);
                 final EditText edittext = new EditText(getActivity());
                 alertDialogBuilder.setView(edittext);
 
                 //positive button- enter to change the things.
-                alertDialogBuilder.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setPositiveButton(R.string.enter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //get the eddittext text input and put it in the textview

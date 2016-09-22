@@ -3,14 +3,12 @@ package com.margaret.lesson4hw;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -47,12 +45,12 @@ public class TasksAdapter extends ArrayAdapter<Task> {
             public void onClick(View v) {
                 Context context = getContext();
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setTitle("Edit the text, or delete an item.");
+                alertDialogBuilder.setTitle(R.string.alert_dialog_title);
                 final EditText edittext = new EditText(context);
                 alertDialogBuilder.setView(edittext);
 
                 //sets the text from the eddittext to the textview.
-                alertDialogBuilder.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setPositiveButton(R.string.enter, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String textInput = edittext.getText().toString();
                         task.setText(textInput);
@@ -61,7 +59,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
                 });
 
                 //deletes the current task.
-                alertDialogBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         tasks.remove(getItem(position));
                         notifyDataSetChanged();
