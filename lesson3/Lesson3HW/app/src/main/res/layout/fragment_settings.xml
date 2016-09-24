@@ -4,30 +4,24 @@
     android:layout_height="match_parent"
     tools:context=".SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Red"
+        android:text="@string/red"
         android:id="@+id/red"
         android:layout_gravity="left|top" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Green"
+        android:text="@string/green"
         android:id="@+id/green"
         android:layout_gravity="center_horizontal|top" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blue"
+        android:text="@string/blue"
         android:id="@+id/blue"
         android:layout_gravity="right|top" />
 
