@@ -1,5 +1,6 @@
 package com.margaret.lesson4hw;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -57,6 +58,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
                         String textInput = edittext.getText().toString();
                         task.setText(textInput);
                         notifyDataSetChanged();
+
                     }
                 });
 

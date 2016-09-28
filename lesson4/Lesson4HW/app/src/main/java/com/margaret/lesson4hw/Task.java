@@ -6,6 +6,10 @@ package com.margaret.lesson4hw;
 public class Task {
     private String text;
 
+    public Task() {
+
+    }
+
     public Task(String text) {
         this.text = text;
     }
