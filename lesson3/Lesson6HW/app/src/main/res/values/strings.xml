@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Facebook</string>
+    <string name ="likebutton">Like</string>
+    <string name ="commentbutton">Comment</string>
+    <string name ="sharebutton">Share</string>
+    <string name="friendname">Jane Doe</string>
+    <string name="post_text">This is a facebook post.</string>
+    <string name="post_prompt">What's on your mind?</string>
+    <string name="livebutton">LIVE</string>
+    <string name="photobutton">PHOTO</string>
+    <string name="checkinbutton">CHECK IN</string>
+    <string name="username">Margaret Crawford</string>
+    <string name="photovideobutton">Photo/Video</string>
+    <string name="golivebutton">Go Live</string>
+    <string name="checkinbuttonII">Check In</string>
+    <string name="feelingbutton">Feeling/Activity</string>
+    <string name="tagbutton">Tag Friends</string>
+    <string name="timesinceactive">2H</string>
+</resources>
