@@ -1,5 +1,6 @@
 package com.margaret.lesson4hw;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,22 +46,23 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
     public ArrayList<Task> getAllTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
+        //https://github.com/codepath/android_guides/wiki/Local-Databases-with-SQLiteOpenHelper
 
         // SELECT * FROM POSTS
-        // LEFT OUTER JOIN USERS
-        // ON POSTS.KEY_POST_USER_ID_FK = USERS.KEY_USER_ID
         String POSTS_SELECT_QUERY =
-                String.format("SELECT " + DictionaryOpenContract.FeedEntry.COLUMN_NAME_TASK + " FROM " + DictionaryOpenContract.FeedEntry.TABLE_NAME);
+                "SELECT * FROM " + DictionaryOpenContract.FeedEntry.TABLE_NAME;
 
         // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
         // disk space scenarios)
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(POSTS_SELECT_QUERY, null);
+
         try {
             if (cursor.moveToFirst()) {
                 do {
                     Task newTask = new Task();
-                    newTask.setText(cursor.getString(cursor.getColumnIndex(DictionaryOpenContract.FeedEntry.TABLE_NAME)));
+                    newTask.setText(cursor.getString(cursor.getColumnIndex(DictionaryOpenContract.FeedEntry.COLUMN_NAME_TASK)));
+                    newTask.setId(cursor.getLong(cursor.getColumnIndex(DictionaryOpenContract.FeedEntry._ID)));
 
                     tasks.add(newTask);
                 } while(cursor.moveToNext());
@@ -73,5 +75,20 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
             }
         }
         return tasks;
+    }
+
+    public boolean deleteTask(Task task) {
+        SQLiteDatabase db = getWritableDatabase();
+         return db.delete(DictionaryOpenContract.FeedEntry.TABLE_NAME , DictionaryOpenContract.FeedEntry._ID
+                    + "=" + task.getId(), null) > 0;
+    }
+
+    public boolean editTask(Task task, String editstring) {
+        //http://stackoverflow.com/questions/9798473/sqlite-in-android-how-to-update-a-specific-row
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues args = new ContentValues();
+        args.put(DictionaryOpenContract.FeedEntry._ID, task.getId());
+        args.put(DictionaryOpenContract.FeedEntry.COLUMN_NAME_TASK, editstring);
+        return db.update(DictionaryOpenContract.FeedEntry.TABLE_NAME, args, DictionaryOpenContract.FeedEntry._ID + "=" + task.getId(), null) > 0;
     }
 }

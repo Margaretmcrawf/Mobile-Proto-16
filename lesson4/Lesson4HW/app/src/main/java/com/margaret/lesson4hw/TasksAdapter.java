@@ -3,6 +3,7 @@ package com.margaret.lesson4hw;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,11 @@ import butterknife.ButterKnife;
 public class TasksAdapter extends ArrayAdapter<Task> {
     @BindView(R.id.tvText) TextView tvText;
     private ArrayList<Task> tasks;
+
+    DictionaryOpenHelper mDbHelper = new DictionaryOpenHelper(getContext());
+    // Gets the data repository in write mode
+    final SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
     public TasksAdapter(Context context, ArrayList<Task> tasks) {
         super(context, 0, tasks);
         this.tasks = tasks;
@@ -43,6 +49,8 @@ public class TasksAdapter extends ArrayAdapter<Task> {
         // Populate the data into the template view using the data object
         tvText.setText(task.getText());
 
+        final DictionaryOpenHelper mDbHelper = new DictionaryOpenHelper(getContext());
+
         //set an onclick listener to the textview.
         tvText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,16 +64,17 @@ public class TasksAdapter extends ArrayAdapter<Task> {
                 alertDialogBuilder.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String textInput = edittext.getText().toString();
+                        mDbHelper.editTask(task, textInput);
                         task.setText(textInput);
                         notifyDataSetChanged();
-
                     }
                 });
 
                 //deletes the current task.
                 alertDialogBuilder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        tasks.remove(getItem(position));
+                        mDbHelper.deleteTask(getItem(position));
+                        tasks.remove(position);
                         notifyDataSetChanged();
                     }
                 });

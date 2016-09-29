@@ -45,11 +45,11 @@ public class MainActivityFragment extends Fragment {
         //spreading the butter
         ButterKnife.bind(this, view);
 
+        //get helper and get db in write mode
         DictionaryOpenHelper mDbHelper = new DictionaryOpenHelper(getContext());
-        // Gets the data repository in write mode
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        //making a new ArrayList of tasks, making an instance of the adapter for the list.
+        //grab arraylist of tasks from the database
         ArrayList<Task> list = mDbHelper.getAllTasks();
         final TasksAdapter tasksAdapter = new TasksAdapter(getActivity(), list);
         listView.setAdapter(tasksAdapter);
@@ -82,6 +82,7 @@ public class MainActivityFragment extends Fragment {
 
                         // Insert the new row, returning the primary key value of the new row
                         long newRowId = db.insert(DictionaryOpenContract.FeedEntry.TABLE_NAME, null, values);
+                        taskInput.setId(newRowId);
                     }
                 });
 
