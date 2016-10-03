@@ -1,6 +1,7 @@
 package mobile_proto_16.com.myapplication;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Console;
 
@@ -37,15 +39,23 @@ public class MainActivityFragment extends Fragment {
 
     private final String TAG = this.getClass().getName();
 
+    //response listener takes the raw string response, takes off a couple of slashes, sends the
+    //result to get parsed in the extractPriceFromJSON function, and sets the textview to the response
     private Response.Listener<String> responseListener = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            // YOUR CODE HERE. DO SOMETHING WHEN A RESPONSE COMES IN.
-            // Hint: remove the first three characters, parse the response into a JSONArray,
-            // and pass it into your extractPriceFromJSON() function.
+            try {
+                JSONArray j = new JSONArray(response.substring(3));
+                String p = extractPriceFromJSON(j);
+                price.setText(p);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     };
 
+    //error listener logs the errors so you can figure out the problem.
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
@@ -63,31 +73,45 @@ public class MainActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
-        final Context c = this.getContext();
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //makes a url from the input text, makes a stringRequest, adds it to the request queue.
                 String url = buildSearchURL(input.getText().toString());
-                // YOUR CODE HERE.
-                //
-                // Create a StringRequest using the URL and the listeners declared above.
-                // Add the request to your RequestQueue from your MySingleton class
-            }
-        });
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        responseListener, errorListener);
+
+                MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+
+                }
+            });
+
 
         return view;
     }
 
     private String buildSearchURL(String companyTicker) {
-        // YOUR CODE HERE
-        // USE URIBuilder
-        return "";
+        // Uses UriBuilder to make a url. There's only one parameter we care about right now, so
+        // string concatenation would probably work, but this is best practices or whatever (and it's
+        //a lot easier to change if more parameters were added)
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("finance.google.com")
+                .appendPath("finance")
+                .appendPath("info")
+                .appendQueryParameter("client", "iq")
+                .appendQueryParameter("q", companyTicker);
+
+        return builder.build().toString();
+
     }
 
     private String extractPriceFromJSON(JSONArray array) throws JSONException {
-        // Your code here. Extract the price value from the JSON array
-        return "";
+        //get the JSON object from the JSONArray, then get the value of the key "l"
+        JSONObject o = array.getJSONObject(0);
+        return o.getString("l");
     }
 
 }
