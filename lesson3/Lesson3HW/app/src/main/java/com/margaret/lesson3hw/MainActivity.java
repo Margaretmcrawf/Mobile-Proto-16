@@ -34,25 +34,35 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //set up fragment manager stuff
-        final Fragment settingsFragment = new SettingsFragment();
         Fragment defaultFragment = new MainActivityFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         //set the default to be the list view
-        fragmentTransaction.add(R.id.mainframelayout, defaultFragment);
+        fragmentTransaction.add(R.id.mainframelayout, defaultFragment).commit();
 
         //add onclick to button to switch to settings screen
-        Button settingsButton = (Button) this.findViewById(R.id.settingsbutton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        final Button switchFragmentButton = (Button) this.findViewById(R.id.switchFragmentButton);
+        switchFragmentButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                fragmentTransaction.replace(R.id.mainframelayout, settingsFragment);
+                Fragment fragment;
+                if (switchFragmentButton.getText() == getString(R.string.settings)) {
+                    // We are currently in the MainActivityFragment, so switch to the SettingsFragment
+                    fragment = new SettingsFragment();
+                    switchFragmentButton.setText(R.string.main_button);
+                } else {
+                    // We are currently in the SettingsFragment, so switch to the MainActivityFragment
+                    fragment = new MainActivityFragment();
+                    switchFragmentButton.setText(R.string.settings);
+                }
+
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.mainframelayout, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
-
     }
 
     @Override

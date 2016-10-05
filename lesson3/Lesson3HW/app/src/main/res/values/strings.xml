@@ -5,4 +5,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_alertdialog_titile">Enter an item to do</string>
+    <string name="enter">Enter</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="settings">Settings</string>
+    <string name="main_button">Main</string>
+    <string name="add_an_item_to_do">Add an item to do</string>
 </resources>
