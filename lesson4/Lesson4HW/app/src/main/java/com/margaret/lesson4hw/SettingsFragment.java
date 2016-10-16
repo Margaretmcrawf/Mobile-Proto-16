@@ -27,7 +27,6 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         //get the buttons
@@ -42,21 +41,11 @@ public class SettingsFragment extends Fragment {
 
         return view;
     }
-    public void onCreate() {
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-
-        int defaultValue = getResources().getColor(R.color.white);
-        int background = sharedPref.getInt(MainActivity.SAVED_COLOR, defaultValue);
-
-
-        getView().setBackgroundColor(background);
-    }
 
     public void buttonSetup(Button name, final int color) {
         //change the background color on click
         name.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //getView().setBackgroundColor(color);
                 getActivity().getWindow().getDecorView().setBackgroundColor(color);
                 currentBackground = color;
 
@@ -90,20 +79,8 @@ public class SettingsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-
-     */
     public interface OnFragmentInteractionListener {
 
         void onSettingsFragmentInteraction(Uri uri);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(MainActivity.SAVED_COLOR, currentBackground);
-        editor.commit();
     }
 }
