@@ -25,9 +25,7 @@ public class TasksAdapter extends ArrayAdapter<Task> {
     @BindView(R.id.tvText) TextView tvText;
     private ArrayList<Task> tasks;
 
-    DictionaryOpenHelper mDbHelper = new DictionaryOpenHelper(getContext());
-    // Gets the data repository in write mode
-    final SQLiteDatabase db = mDbHelper.getWritableDatabase();
+    private DictionaryOpenHelper mDbHelper = new DictionaryOpenHelper(getContext());
 
     public TasksAdapter(Context context, ArrayList<Task> tasks) {
         super(context, 0, tasks);
@@ -48,8 +46,6 @@ public class TasksAdapter extends ArrayAdapter<Task> {
 
         // Populate the data into the template view using the data object
         tvText.setText(task.getText());
-
-        final DictionaryOpenHelper mDbHelper = new DictionaryOpenHelper(getContext());
 
         //set an onclick listener to the textview.
         tvText.setOnClickListener(new View.OnClickListener() {
