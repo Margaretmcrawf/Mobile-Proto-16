@@ -5,7 +5,7 @@
     <string name ="sharebutton">Share</string>
     <string name="friendname">Jane Doe</string>
     <string name="post_text">This is a facebook post.</string>
-    <string name="post_prompt">What's on your mind?</string>
+    <string name="post_prompt">What\'s on your mind?</string>
     <string name="livebutton">LIVE</string>
     <string name="photobutton">PHOTO</string>
     <string name="checkinbutton">CHECK IN</string>
