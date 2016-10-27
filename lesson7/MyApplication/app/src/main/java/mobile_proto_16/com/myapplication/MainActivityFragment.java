@@ -48,7 +48,6 @@ public class MainActivityFragment extends Fragment {
                 JSONArray j = new JSONArray(response.substring(3));
                 String p = extractPriceFromJSON(j);
                 price.setText(p);
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -83,10 +82,8 @@ public class MainActivityFragment extends Fragment {
                         responseListener, errorListener);
 
                 MySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-
                 }
             });
-
 
         return view;
     }
@@ -105,7 +102,6 @@ public class MainActivityFragment extends Fragment {
                 .appendQueryParameter("q", companyTicker);
 
         return builder.build().toString();
-
     }
 
     private String extractPriceFromJSON(JSONArray array) throws JSONException {
